@@ -4,11 +4,12 @@ pipeline{
     tools{
         maven 'Local Maven'
     }
-	stage ('Checkout') {
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/Spidermanu/maven-project.git']]]) 
-	}
 
     stages{
+	stage ('Checkout') {
+	    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/Spidermanu/maven-project.git']]]) 
+	}
+
         stage('Build'){
             steps{
                 bat 'mvn clean package'
