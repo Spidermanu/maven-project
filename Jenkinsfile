@@ -7,7 +7,9 @@ pipeline{
 
     stages{
 	stage ('Checkout') {
-	    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/Spidermanu/maven-project.git']]]) 
+	    steps{
+	        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/Spidermanu/maven-project.git']]]) 
+	    }
 	}
 
         stage('Build'){
@@ -18,7 +20,7 @@ pipeline{
             post{
                 success{
                     echo "Estamos haciendo el archive de los artefactos"
-                    archiveArtifacts artifacts: '**/*.war'
+                    archiveArtifacts artifacts: '**/target/*.war'
                 }
             }
         }
